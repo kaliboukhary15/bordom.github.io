@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Insult Button</title>
+  <style>
+    body {
+      background: rgb(250, 249, 246);
+      color: rgb(0, 0, 0);
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: crimson;
+      color: white;
+      transition: transform 0.1s;
+      width: 200px;
+        align-self: center;
+        margin-top: 0;
+    }
+    button:hover {
+  background: hotpink;
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.7);
+}
+
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    #insult {
+      margin-bottom: 24px;
+      font-size: 22px;
+      text-align: center;
+      max-width: 400px;
+    }
+    #pic {
+      margin-top: 20px;
+      max-width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 0px 10px rgba(250, 249, 246);
+      margin-left: 900px;
+      position: fixed;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="insult">Go on. Click it.</div>
+  <button onclick="insultMe()">Click me 😈</button>
+  <img id="pic" src="" alt="random image" />
+
+
+
+  <script>
+    const insults = [
+      "You clicked that way too confidently.",
+      "Bold of you to assume this would help your life.",
+      "This button has seen smarter clicks.",
+      "Your ancestors are watching this choice.",
+      "At least you're consistent… consistently clicking.",
+      "That click had zero thoughts behind it.",
+      "Wow. Again? Fascinating behavior.",
+      "This is why bugs exist.",
+      "You click like you debug: emotionally.",
+      "Respectfully… stop.",
+      "That click explained a lot about you.",
+      "You pressed it like thinking was optional.",
+      "This is why the tutorial was mandatory.",
+"You clicked with confidence and zero competence.",
+"I’ve seen broken keyboards make better decisions.",
+"That click was a cry for help.",
+"You really thought this would go differently?",
+"Your mouse is doing all the work. Your brain clocked out.",
+"This button has lost respect for you.",
+"You clicked like consequences aren’t real.",
+"Every click makes this app more disappointed.",
+"You are the reason error messages have feelings.",
+"That was not curiosity. That was audacity.",
+"You clicked like you skip lectures and regret it later.",
+"Somewhere, common sense just rage-quit.",
+"You are aggressively unlearning.",
+"That click lowered the average IQ in the room.",
+"You didn’t hesitate. That’s the scary part.",
+"This app is reconsidering its purpose because of you.",
+"You click like you say ‘it’ll work’ and walk away.",
+"That was a decision made with vibes, not logic.",
+"You’re not testing the app. The app is testing you.",
+"Your confidence is doing parkour over reality.",
+"You clicked again? Incredible commitment to nonsense.",
+"This is not experimentation. This is self-sabotage.",
+"You press buttons like they owe you answers.",
+"You are the control group they warned us about.",
+"That click was loud. Not smart. Just loud.",
+"You’re clicking like the deadline already passed.",
+"This is why we can’t have nice interfaces.",
+"You’re one click away from enlightenment—and consistently missing it.",
+"You didn’t learn. You doubled down.",
+"At this point, it’s performance art.",
+"You click like debugging is someone else’s problem."
+
+    ];
+
+    function insultMe() {
+      const random = Math.floor(Math.random() * insults.length);
+      document.getElementById("insult").innerText = insults[random];
+      // try to use one of the local images; if it fails, the onerror fallback will use picsum
+      useLocalRandom();
+    }
+
+  // Local images added by the user (relative to this HTML file)
+  const localPics = [
+    "1.png",
+    "2.png",
+    "emots.png",
+    "ChatGPT Image Jan 3, 2026, 11_31_31 PM.png",
+    "4.png",
+    "5.png"
+  ];
+
+  const picEl = document.getElementById('pic');
+  // Ensure the image is hidden and has no src on initial load
+  picEl.style.display = 'none';
+  picEl.removeAttribute('src');
+
+  function useLocalRandom() {
+    // Set handlers only when we assign a src so they don't fire on page load
+    picEl.onload = function() {
+      picEl.style.display = 'block';
+      picEl.onload = null;
+    };
+    picEl.onerror = function() {
+      picEl.onerror = null;
+      picEl.style.display = 'block';
+      picEl.src = 'https://picsum.photos/400/250?random=' + Date.now();
+    };
+
+    if (!localPics.length) {
+      picEl.src = 'https://picsum.photos/400/250?random=' + Date.now();
+      return;
+    }
+    const randomIndex = Math.floor(Math.random() * localPics.length);
+    picEl.src = encodeURI(localPics[randomIndex]);
+  }
+</script>
+
+
+</body>
+</html>
